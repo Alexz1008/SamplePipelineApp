@@ -14,6 +14,16 @@ variables:
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
 
+resources:
+  webhooks:
+    - webhook: MyWebhookTrigger          ### Webhook alias
+      connection: Webhook SC    ### Incoming webhook service connection
+      filters:
+        - path: repositoryName      ### JSON path in the payload
+          value: maven-releases     ### Expected value in the path provided
+        - path: action
+          value: CREATED
+
 steps:
 - task: NuGetToolInstaller@1
 
